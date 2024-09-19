@@ -19,7 +19,9 @@ class CreateDietServ {
             if(responseGenerate.response && responseGenerate.response.candidates) {
                 const jsonTxt = responseGenerate.response.candidates[0]?.content.parts[0].text as string;
 
-                return { data:jsonTxt }
+                let jsonFormat = jsonTxt.replace(/```\w*\n/g, "").replace(/\n```/g, "").trim()
+
+                return { data:JSON.parse(jsonFormat) }
             }else{
                 return { error:"service error" }
             }
